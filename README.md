@@ -190,3 +190,40 @@ During the bidding period, a bidder does not actually send her bid, but only a h
 Another challenge is how to make the auction binding and blind at the same time: The only way to prevent the bidder from just not sending the money after he won the auction is to make her send it together with the bid. Since value transfers cannot be blinded in Ethereum, anyone can see the value.
 
 The BlindAuction contract solves this problem by accepting any value that is larger than the highest bid. Since this can of course only be checked during the reveal phase, some bids might be invalid, and this is on purpose (it even provides an explicit flag to place invalid bids with high value transfers): Bidders can confuse competition by placing several high or low invalid bids.
+
+## Lesson 3: Solidity in Depth
+### 3.2 Layout of a Solidity Source File
+#### Version pragma
+Source files can (and should) be annotated with a so-called version pragma to reject being compiled with future compiler versions that might introduce incompatible changes.
+
+The version pragma is used as follows:
+```javascript
+pragma solidity ^0.4.0;
+```
+Such a source file will not compile with a compiler earlier than version 0.4.0 and it will also not work on a compiler starting from version 0.5.0 (this second condition is added by using `^`).
+
+#### Importing other Source Files
+##### Syntax and Semantics
+Solidity supports import statements that are very similar to those available in JavaScript (from ES6 on), although Solidity does not know the concept of a “default export”.
+
+At a global level, you can use import statements of the following form:
+```javascript
+import "filename";
+```
+This statement imports all global symbols from “filename” (and symbols imported there) into the current global scope (different than in ES6 but backwards-compatible for Solidity).
+```javascript
+import * as symbolName from "filename";
+```
+…creates a new global symbol *symbolName* whose members are all the global symbols from *"filename"*.
+```javascript
+import {symbol1 as alias, symbol2} from "filename";
+```
+…creates new global symbols `alias` and `symbol2` which reference `symbol1` and `symbol2` from `"filename"`, respectively.
+
+Another syntax is not part of ES6, but probably convenient:
+```javascript
+import "filename" as symbolName;
+```
+which is equivalent to `import * as symbolName from "filename"`;.
+
+##### Paths
