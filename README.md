@@ -1,7 +1,7 @@
 # Solidity Docs (*Notes from readthedocs*)
 
-## Introduction to Smart Contract
-### A simple Smart Contract
+## Lesson 1: Introduction to Smart Contract
+### 1.1 A simple Smart Contract
 #### Storage Example
 ```javascript
 pragma solidity ^0.4.0;
@@ -81,7 +81,7 @@ Coin.Sent().watch({}, '', function(error, result) {
 ```
 Finally, the functions that will actually end up with the contract and can be called by users and contracts alike are `mint` and `send`. If `mint` is called by anyone except the account that created the contract, nothing will happen. On the other hand, `send` can be used by anyone (who already has some of these coins) to send coins to anyone else.
 
-### Blockchain Basics
+### 1.2 Blockchain Basics
 #### Transactions
 A blockchain is a globally shared, transactional database. This means that everyone can read entries in the database just by participating in the network.
 
@@ -98,7 +98,7 @@ These blocks form a *linear sequence in time* and that is where the word **“bl
 
 As part of the *“order selection mechanism”* (which is called **“mining”**) it may happen that blocks are reverted from time to time, but only at the “tip” of the chain. The more blocks that are added on top, the less likely it is. So it might be that your transactions are reverted and even removed from the blockchain, but the longer you wait, the less likely it will be.
 
-### The Ethereum Virtual Machine
+### 1.3 The Ethereum Virtual Machine
 The Ethereum Virtual Machine or EVM is the runtime environment for smart contracts in Ethereum. It is not only sandboxed but actually completely isolated, which means that code running inside the EVM has no access to network, filesystem or other processes. Smart contracts even have limited access to other smart contracts.
 
 #### Accounts
@@ -162,3 +162,5 @@ Contracts can even create other contracts using a special opcode (i.e. they do n
 
 #### Self-destruct
 The only possibility that code is removed from the blockchain is when a contract at that address performs the `selfdestruct` operation. The remaining Ether stored at that address is sent to a designated target and then the storage and code is removed from the state.
+
+## Lesson 2: Solidity by Example
