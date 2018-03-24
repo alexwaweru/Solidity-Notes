@@ -164,3 +164,20 @@ Contracts can even create other contracts using a special opcode (i.e. they do n
 The only possibility that code is removed from the blockchain is when a contract at that address performs the `selfdestruct` operation. The remaining Ether stored at that address is sent to a designated target and then the storage and code is removed from the state.
 
 ## Lesson 2: Solidity by Example
+### 2.1 Voting
+The Ballot.sol implements a voting contract. The main problems of electronic voting is how to assign voting rights to the correct persons and how to prevent manipulation. The contract shows how delegated voting can be done so that vote counting is **automatic and completely transparent** at the same time.
+
+The idea is to create one contract per ballot, providing a short name for each option. Then the creator of the contract who serves as chairperson will give the right to vote to each address individually.
+
+The persons behind the addresses can then choose to either vote themselves or to delegate their vote to a person they trust.
+
+At the end of the voting time, `winningProposal()` will return the proposal with the largest number of votes.
+
+#### Possible Improvements
+Currently, many transactions are needed to assign the rights to vote to all participants. Can you think of a better way?
+
+#### Blind Auction
+In this section, we will show how easy it is to create a completely blind auction contract on Ethereum. We will start with an open auction where everyone can see the bids that are made and then extend this contract into a blind auction where it is not possible to see the actual bid until the bidding period ends.
+
+##### Simple Open Auction
+The SimpleAuction.sol implements a simple auction contract where everyone can send their bids during a bidding period.The bids already include sending money / ether in order to bind the bidders to their bid. If the highest bid is raised, the previously highest bidder gets her money back. After the end of the bidding period, the contract has to be called manually for the beneficiary to receive his money - contracts cannot activate themselves.
